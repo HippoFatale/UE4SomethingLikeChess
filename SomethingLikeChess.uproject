@@ -1,0 +1,18 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "{E5FF5DFC-4283-7E05-6E1C-13B70AD72447}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "SomethingLikeChess",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine",
+				"AIModule",
+				"UMG"
+			]
+		}
+	]
+}
