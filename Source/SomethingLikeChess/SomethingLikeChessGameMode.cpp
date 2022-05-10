@@ -5,6 +5,7 @@
 #include "UObject/ConstructorHelpers.h"
 #include "SLCPlayerController.h"
 #include "Engine/World.h"
+#include "GameFramework/PlayerController.h"
 
 ASomethingLikeChessGameMode::ASomethingLikeChessGameMode()
 {
@@ -52,6 +53,18 @@ FString ASomethingLikeChessGameMode::InitNewPlayer(APlayerController* NewPlayerC
 	return ErrorMessage;
 }
 
+
+void ASomethingLikeChessGameMode::SpawnPlayers(int32 InPlayers)
+{
+	UWorld* World = GetWorld();
+	FActorSpawnParameters SpawnParameters;
+
+	for (int i = 0; i < InPlayers; i++)
+	{
+		World->SpawnActor<ASomethingLikeChessCharacter>(SLCCharacter, FVector(Boarda1X + (rand() % (BoardSquares - 1)) * 100 + 50, Boarda1Y + (rand() % (BoardSquares - 1)) * 100 + 50, 200), FVector::ForwardVector.Rotation(), SpawnParameters);
+	}
+}
+
 void ASomethingLikeChessGameMode::SpawnPieces(int32 InKings, int32 InQueens, int32 InRooks, int32 InBishops, int32 InKnights, int32 InPawns)
 {
 	UWorld* World = GetWorld();
@@ -61,32 +74,32 @@ void ASomethingLikeChessGameMode::SpawnPieces(int32 InKings, int32 InQueens, int
 	{
 		for (int i = 0; i < InKings; i++)
 		{
-			World->SpawnActor<AKing>(King, FVector(Boarda1X + (rand() % (BoardSquares - 1)) * 100 + 50, Boarda1Y + (rand() % (BoardSquares - 1)) * 100 + 50, FloorLevel + 110.0f), FVector::ForwardVector.Rotation(), SpawnParameters);
+			World->SpawnActor<AKing>(King, FVector(Boarda1X + (rand() % (BoardSquares - 1)) * 100 + 50, Boarda1Y + (rand() % (BoardSquares - 1)) * 100 + 50, FloorLevel + rand() % 200), FVector::ForwardVector.Rotation(), SpawnParameters);
 		}
 
 		for (int i = 0; i < InQueens; i++)
 		{
-			World->SpawnActor<AQueen>(Queen, FVector(Boarda1X + (rand() % (BoardSquares - 1)) * 100 + 50, Boarda1Y + (rand() % (BoardSquares - 1)) * 100 + 50, FloorLevel + 95.0f), FVector::ForwardVector.Rotation(), SpawnParameters);
+			World->SpawnActor<AQueen>(Queen, FVector(Boarda1X + (rand() % (BoardSquares - 1)) * 100 + 50, Boarda1Y + (rand() % (BoardSquares - 1)) * 100 + 50, FloorLevel + rand() % 200), FVector::ForwardVector.Rotation(), SpawnParameters);
 		}
 
 		for (int i = 0; i < InRooks; i++)
 		{
-			World->SpawnActor<ARook>(Rook, FVector(Boarda1X + (rand() % (BoardSquares - 1)) * 100 + 50, Boarda1Y + (rand() % (BoardSquares - 1)) * 100 + 50, FloorLevel + 75.0f), FVector::ForwardVector.Rotation(), SpawnParameters);
+			World->SpawnActor<ARook>(Rook, FVector(Boarda1X + (rand() % (BoardSquares - 1)) * 100 + 50, Boarda1Y + (rand() % (BoardSquares - 1)) * 100 + 50, FloorLevel + rand() % 200), FVector::ForwardVector.Rotation(), SpawnParameters);
 		}
 
 		for (int i = 0; i < InBishops; i++)
 		{
-			World->SpawnActor<ABishop>(Bishop, FVector(Boarda1X + (rand() % (BoardSquares - 1)) * 100 + 50, Boarda1Y + (rand() % (BoardSquares - 1)) * 100 + 50, FloorLevel + 90.0f), FVector::ForwardVector.Rotation(), SpawnParameters);
+			World->SpawnActor<ABishop>(Bishop, FVector(Boarda1X + (rand() % (BoardSquares - 1)) * 100 + 50, Boarda1Y + (rand() % (BoardSquares - 1)) * 100 + 50, FloorLevel + rand() % 200), FVector::ForwardVector.Rotation(), SpawnParameters);
 		}
 
 		for (int i = 0; i < InKnights; i++)
 		{
-			World->SpawnActor<AKnight>(Knight, FVector(Boarda1X + (rand() % (BoardSquares - 1)) * 100 + 50, Boarda1Y + (rand() % (BoardSquares - 1)) * 100 + 50, FloorLevel + 90.0f), FVector::ForwardVector.Rotation(), SpawnParameters);
+			World->SpawnActor<AKnight>(Knight, FVector(Boarda1X + (rand() % (BoardSquares - 1)) * 100 + 50, Boarda1Y + (rand() % (BoardSquares - 1)) * 100 + 50, FloorLevel + rand() % 200), FVector::ForwardVector.Rotation(), SpawnParameters);
 		}
 
 		for (int i = 0; i < InPawns; i++)
 		{
-			World->SpawnActor<APawnChessPiece>(PawnPiece, FVector(Boarda1X + (rand() % (BoardSquares - 1)) * 100 + 50, Boarda1Y + (rand() % (BoardSquares - 1)) * 100 + 50, FloorLevel + 60.0f), FVector::ForwardVector.Rotation(), SpawnParameters);
+			World->SpawnActor<APawnChessPiece>(PawnPiece, FVector(Boarda1X + (rand() % (BoardSquares - 1)) * 100 + 50, Boarda1Y + (rand() % (BoardSquares - 1)) * 100 + 50, FloorLevel + rand() % 200), FVector::ForwardVector.Rotation(), SpawnParameters);
 		}
 	}
 }

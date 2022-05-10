@@ -26,8 +26,6 @@ void ASLCPlayerController::OnPossess(APawn* InPawn)
 	if (PlayerCharacter != nullptr)
 	{
 		PlayerCharacter->SetPlayerTeam(GetControllerTeam());
-		//FPlayerTeamInfo PlayerInfo(PlayerCharacter, GetControllerTeam());
-		//PlayerCharacter->ServerSetPlayerColor(GetControllerTeam());
 	}
 }
 

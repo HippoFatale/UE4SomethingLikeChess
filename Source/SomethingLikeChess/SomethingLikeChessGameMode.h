@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "SomethingLikeChessCharacter.h"
+#include "SLCPlayerController.h"
 #include "King.h"
 #include "Queen.h"
 #include "Rook.h"
@@ -25,12 +27,22 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
-#pragma region SetPlayerTeam
+#pragma region SetPlayerTeam SpawnPlayer
 protected:
 	virtual FString InitNewPlayer(APlayerController* NewPlayerController, const FUniqueNetIdRepl& UniqueId, const FString& Options, const FString& Portal = TEXT("")) override;
 
+	void SpawnPlayers(int32 InPlayers);
+
 private:
 	bool bIsTeam1 = true;
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<class ASLCPlayerController> SLCPlayerController;
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<class ASomethingLikeChessCharacter> SLCCharacter;
+
+	int32 Players = 2;
 #pragma endregion
 
 #pragma region SpawnPieces
