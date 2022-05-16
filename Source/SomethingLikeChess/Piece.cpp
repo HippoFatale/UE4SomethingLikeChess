@@ -19,11 +19,12 @@ APiece::APiece()
 	CollisionComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleComp"));
 	CollisionComp->InitCapsuleSize(42.0f, 96.0f);
 	CollisionComp->BodyInstance.SetCollisionProfileName("Piece");
-	//CollisionComp->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
+	CollisionComp->OnComponentHit.AddDynamic(this, &APiece::OverlapDestroy);
 	RootComponent = CollisionComp;
 
 	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComp"));
 	MeshComp->SetupAttachment(RootComponent);
+	MeshComp->OnComponentHit.AddDynamic(this, &APiece::OverlapDestroy);
 
 	NeutralMaterial = CreateDefaultSubobject<UMaterial>(TEXT("NeutralMateral"));
 	Team1Material = CreateDefaultSubobject<UMaterial>(TEXT("Team1Materal"));
@@ -41,7 +42,6 @@ void APiece::BeginPlay()
 void APiece::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 // Called to bind functionality to input
@@ -140,5 +140,13 @@ void APiece::TeamColorManager(EPieceTeam InPieceTeam)
 		Projectile = Projectile2;
 		WarningSquare = WarningSquare2;
 		break;
+	}
+}
+
+void APiece::OverlapDestroy(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+{
+	if (Cast<AProjectile>(OtherActor))
+	{
+		Destroy();
 	}
 }

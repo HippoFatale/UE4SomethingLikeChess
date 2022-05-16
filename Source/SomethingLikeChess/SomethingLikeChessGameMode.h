@@ -4,8 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "GameFramework/PlayerStart.h"
 #include "SomethingLikeChessCharacter.h"
-#include "SLCPlayerController.h"
 #include "King.h"
 #include "Queen.h"
 #include "Rook.h"
@@ -13,6 +13,7 @@
 #include "Knight.h"
 #include "PawnChessPiece.h"
 #include "SomethingLikeChessGameMode.generated.h"
+
 
 UCLASS(minimalapi)
 class ASomethingLikeChessGameMode : public AGameModeBase
@@ -36,12 +37,10 @@ protected:
 private:
 	bool bIsTeam1 = true;
 
-	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<class ASLCPlayerController> SLCPlayerController;
-
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, Category = "Player")
 	TSubclassOf<class ASomethingLikeChessCharacter> SLCCharacter;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Player")
 	int32 Players = 2;
 #pragma endregion
 

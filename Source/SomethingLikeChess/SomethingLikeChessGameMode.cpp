@@ -21,6 +21,8 @@ void ASomethingLikeChessGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
+	SpawnPlayers(Players);
+
 	int32 Kings = Sets * 1;
 	int32 Queens = Sets * 1;
 	int32 Rooks = Sets * 2;
@@ -59,9 +61,9 @@ void ASomethingLikeChessGameMode::SpawnPlayers(int32 InPlayers)
 	UWorld* World = GetWorld();
 	FActorSpawnParameters SpawnParameters;
 
-	for (int i = 0; i < InPlayers; i++)
+	for (int i = 0; i < Players; i++)
 	{
-		World->SpawnActor<ASomethingLikeChessCharacter>(SLCCharacter, FVector(Boarda1X + (rand() % (BoardSquares - 1)) * 100 + 50, Boarda1Y + (rand() % (BoardSquares - 1)) * 100 + 50, 200), FVector::ForwardVector.Rotation(), SpawnParameters);
+		World->SpawnActor<ASomethingLikeChessCharacter>(SLCCharacter, FVector(Boarda1X + (rand() % (BoardSquares - 1)) * 100 + 50, Boarda1Y + (rand() % (BoardSquares - 1)) * 100 + 50, 130), FVector::ForwardVector.Rotation(), SpawnParameters);
 	}
 }
 

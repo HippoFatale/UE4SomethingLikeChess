@@ -119,6 +119,10 @@ private:
 	UMaterial* Team2Material;
 #pragma endregion
 
+private:
+	UFUNCTION()
+	void OverlapDestroy(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
 public:
 	UPROPERTY(VisibleDefaultsOnly, Category = Piece)
 	class UCapsuleComponent* CollisionComp;
