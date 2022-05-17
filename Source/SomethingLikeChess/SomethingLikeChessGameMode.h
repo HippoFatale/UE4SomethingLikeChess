@@ -45,6 +45,9 @@ private:
 #pragma endregion
 
 #pragma region SpawnPieces
+public:
+	void AdditonalSpawnPieces(int32 InPieceType);
+
 protected:
 	void SpawnPieces(int32 InKings, int32 InQueens, int32 InRooks, int32 InBishops, int32 InKnights, int32 InPawns);
 
@@ -77,6 +80,13 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Spawn")
 	int32 Sets = 1;
+
+	int32 Kings = Sets * 1;
+	int32 Queens = Sets * 1;
+	int32 Rooks = Sets * 2;
+	int32 Bishops = Sets * 2;
+	int32 Knights = Sets * 2;
+	int32 PawnPieces = Sets * 8;
 #pragma endregion
 };
 

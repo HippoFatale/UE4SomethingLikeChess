@@ -23,12 +23,6 @@ void ASomethingLikeChessGameMode::BeginPlay()
 
 	SpawnPlayers(Players);
 
-	int32 Kings = Sets * 1;
-	int32 Queens = Sets * 1;
-	int32 Rooks = Sets * 2;
-	int32 Bishops = Sets * 2;
-	int32 Knights = Sets * 2;
-	int32 PawnPieces = Sets * 8;
 	SpawnPieces(Kings, Queens, Rooks, Bishops, Knights, PawnPieces);
 }
 
@@ -102,6 +96,37 @@ void ASomethingLikeChessGameMode::SpawnPieces(int32 InKings, int32 InQueens, int
 		for (int i = 0; i < InPawns; i++)
 		{
 			World->SpawnActor<APawnChessPiece>(PawnPiece, FVector(Boarda1X + (rand() % (BoardSquares - 1)) * 100 + 50, Boarda1Y + (rand() % (BoardSquares - 1)) * 100 + 50, FloorLevel + rand() % 200), FVector::ForwardVector.Rotation(), SpawnParameters);
+		}
+	}
+}
+
+void ASomethingLikeChessGameMode::AdditonalSpawnPieces(int32 InPieceType)
+{
+	UWorld* World = GetWorld();
+	FActorSpawnParameters SpawnParameters;
+
+	if (World != nullptr)
+	{
+		switch (InPieceType)
+		{
+		case 0:
+			World->SpawnActor<APawnChessPiece>(PawnPiece, FVector(Boarda1X + (rand() % (BoardSquares - 1)) * 100 + 50, Boarda1Y + (rand() % (BoardSquares - 1)) * 100 + 50, FloorLevel + rand() % 200), FVector::ForwardVector.Rotation(), SpawnParameters);
+			break;
+		case 1:
+			World->SpawnActor<APawnChessPiece>(Knight, FVector(Boarda1X + (rand() % (BoardSquares - 1)) * 100 + 50, Boarda1Y + (rand() % (BoardSquares - 1)) * 100 + 50, FloorLevel + rand() % 200), FVector::ForwardVector.Rotation(), SpawnParameters);
+			break;
+		case 2:
+			World->SpawnActor<APawnChessPiece>(Bishop, FVector(Boarda1X + (rand() % (BoardSquares - 1)) * 100 + 50, Boarda1Y + (rand() % (BoardSquares - 1)) * 100 + 50, FloorLevel + rand() % 200), FVector::ForwardVector.Rotation(), SpawnParameters);
+			break;
+		case 3:
+			World->SpawnActor<APawnChessPiece>(Rook, FVector(Boarda1X + (rand() % (BoardSquares - 1)) * 100 + 50, Boarda1Y + (rand() % (BoardSquares - 1)) * 100 + 50, FloorLevel + rand() % 200), FVector::ForwardVector.Rotation(), SpawnParameters);
+			break;
+		case 4:
+			World->SpawnActor<APawnChessPiece>(Queen, FVector(Boarda1X + (rand() % (BoardSquares - 1)) * 100 + 50, Boarda1Y + (rand() % (BoardSquares - 1)) * 100 + 50, FloorLevel + rand() % 200), FVector::ForwardVector.Rotation(), SpawnParameters);
+			break;
+		case 5:
+			World->SpawnActor<APawnChessPiece>(King, FVector(Boarda1X + (rand() % (BoardSquares - 1)) * 100 + 50, Boarda1Y + (rand() % (BoardSquares - 1)) * 100 + 50, FloorLevel + rand() % 200), FVector::ForwardVector.Rotation(), SpawnParameters);
+			break;
 		}
 	}
 }

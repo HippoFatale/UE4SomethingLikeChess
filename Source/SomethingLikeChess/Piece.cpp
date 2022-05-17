@@ -19,12 +19,13 @@ APiece::APiece()
 	CollisionComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleComp"));
 	CollisionComp->InitCapsuleSize(42.0f, 96.0f);
 	CollisionComp->BodyInstance.SetCollisionProfileName("Piece");
-	CollisionComp->OnComponentHit.AddDynamic(this, &APiece::OverlapDestroy);
+	CollisionComp->OnComponentBeginOverlap.AddDynamic(this, &APiece::OverlapDestroy);
 	RootComponent = CollisionComp;
 
 	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComp"));
 	MeshComp->SetupAttachment(RootComponent);
-	MeshComp->OnComponentHit.AddDynamic(this, &APiece::OverlapDestroy);
+	MeshComp->BodyInstance.SetCollisionProfileName("Piece");
+	//MeshComp->OnComponentHit.AddDynamic(this, &APiece::OverlapDestroy);
 
 	NeutralMaterial = CreateDefaultSubobject<UMaterial>(TEXT("NeutralMateral"));
 	Team1Material = CreateDefaultSubobject<UMaterial>(TEXT("Team1Materal"));
@@ -143,9 +144,17 @@ void APiece::TeamColorManager(EPieceTeam InPieceTeam)
 	}
 }
 
-void APiece::OverlapDestroy(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+void APiece::CollisionDestroy(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	if (Cast<AProjectile>(OtherActor))
+	if (Cast<APiece>(OtherActor))
+	{
+		Destroy();
+	}
+}
+
+void APiece::OverlapDestroy(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if (Cast<APiece>(OtherActor))
 	{
 		Destroy();
 	}
