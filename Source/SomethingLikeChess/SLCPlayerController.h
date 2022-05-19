@@ -19,15 +19,10 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<class USLCHUD> BP_SLCHUD;
 
-	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<class USLCGameOver> BP_SLCGameOver;
-
 	void UpdateHealthPercent(float InHealthPercent);
 
 	void SetControllerTeam(EPieceTeam InControllerTeam) { ControllerTeam = InControllerTeam; }
 	EPieceTeam GetControllerTeam() { return ControllerTeam; }
-
-	void GameOver();
 
 protected:
 	virtual void BeginPlay() override;
@@ -37,9 +32,6 @@ protected:
 private:
 	UPROPERTY()
 	class USLCHUD* SLCHUD;
-
-	UPROPERTY()
-	class USLCGameOver* SLCGameOver;
 
 	EPieceTeam ControllerTeam = EPieceTeam::Neutral;
 };

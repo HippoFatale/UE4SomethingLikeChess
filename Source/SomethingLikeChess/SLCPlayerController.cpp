@@ -4,7 +4,6 @@
 #include "SLCPlayerController.h"
 #include "SLCTypes.h"
 #include "SLCHUD.h"
-#include "SLCGameOver.h"
 #include "SomethingLikeChessCharacter.h"
 
 void ASLCPlayerController::BeginPlay()
@@ -14,7 +13,7 @@ void ASLCPlayerController::BeginPlay()
 	if (BP_SLCHUD != nullptr && IsLocalPlayerController())
 	{
 		SLCHUD = CreateWidget<USLCHUD>(this, BP_SLCHUD);
-		SLCHUD->AddToViewport();
+		SLCHUD->AddToViewport(0);
 	}
 }
 
@@ -26,18 +25,6 @@ void ASLCPlayerController::OnPossess(APawn* InPawn)
 	if (PlayerCharacter != nullptr)
 	{
 		PlayerCharacter->SetPlayerTeam(GetControllerTeam());
-	}
-}
-
-void ASLCPlayerController::GameOver()
-{
-	if (BP_SLCGameOver != nullptr)
-	{
-		SetPause(true);
-		SetInputMode(FInputModeUIOnly());
-		bShowMouseCursor = true;
-		SLCGameOver = CreateWidget<USLCGameOver>(this, BP_SLCGameOver);
-		SLCGameOver->AddToViewport();
 	}
 }
 

@@ -212,13 +212,6 @@ void ASomethingLikeChessCharacter::MulticastPlayerAttack_Implementation(FPlayerA
 	DrawDebugLine(GetWorld(), InPlayerAttackInfo.StartPoint, InPlayerAttackInfo.EndPoint, FColor::Green, false, 5.0f);
 }
 
-
-float ASomethingLikeChessCharacter::GetHealth()
-{
-	return HealthPercentage;
-}
-
-
 void ASomethingLikeChessCharacter::UpdateHealth(float HealthChange)
 {
 	Health += HealthChange;
@@ -228,15 +221,10 @@ void ASomethingLikeChessCharacter::UpdateHealth(float HealthChange)
 
 	if (Health <= 0.0f)
 	{
-		ASLCPlayerController* PlayerController = Cast<ASLCPlayerController>(GetController());
-		if (PlayerController != nullptr)
-		{
-			PlayerController->GameOver();
-		}
+		bGameEnd = true;
+		bVictory = false;
 
-		//ASLCGameStateBase* GameState;
-		//GameState->Lose(PlayerTeam);
-
+		//Destroy();
 	}
 }
 

@@ -79,7 +79,7 @@ private:
 	float FloorLevel = 130.0f;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Spawn")
-	int32 Sets = 1;
+	int32 Sets = 2;
 
 	int32 Kings = Sets * 1;
 	int32 Queens = Sets * 1;
