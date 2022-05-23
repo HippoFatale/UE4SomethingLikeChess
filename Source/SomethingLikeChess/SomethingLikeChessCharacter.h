@@ -89,17 +89,10 @@ public:
 #pragma region HP
 public:
 	UFUNCTION(BlueprintPure, Category = "Health")
-		float GetHealth() { return HealthPercentage; }
-
+	float GetHealth() { return HealthPercentage; }
 
 	UFUNCTION(BlueprintCallable, Category = "Health")
 	void UpdateHealth(float HealthChange);
-
-	UFUNCTION(BlueprintPure, Category = "Result")
-	bool GetGameEnd() { return bGameEnd; }
-
-	UFUNCTION(BlueprintPure, Category = "Result")
-	bool GetGameResult() { return bVictory; }
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health")
@@ -110,13 +103,29 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health")
 	float HealthPercentage = 1.0f;
+#pragma endregion
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health")
-	float PreviousHealth =  HealthPercentage;
+#pragma region Score
+public:
+	UFUNCTION(BlueprintPure, Category = "Score")
+	bool GetGameEnd() { return bGameEnd; }
 
+	UFUNCTION(BlueprintPure, Category = "Score")
+	bool GetGameResult() { return bVictory; }
+
+	UFUNCTION(BlueprintPure, Category = "Score")
+	float GetScore() { return Score; }
+
+	UFUNCTION(BlueprintCallable, Category = "Score")
+	void UpdateScore(float ScoreChange);
+
+public:
 	bool bGameEnd = false;
 
 	bool bVictory = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Score")
+	float Score = 0.0f;
 #pragma endregion
 
 #pragma region Team

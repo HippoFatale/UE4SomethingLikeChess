@@ -16,7 +16,11 @@ class SOMETHINGLIKECHESS_API USLCHUD : public UUserWidget
 public:
 	void UpdateHealthPercent(float InHealthPercent);
 
+	void UpdateScoreText(float InScoreText);
 public:
 	UPROPERTY(meta = (BindWidget))
 	class UProgressBar* HealthBar;
+
+	//UPROPERTY(meta = (BindWidget))
+	//class UTextBinding* ScoreText;
 };

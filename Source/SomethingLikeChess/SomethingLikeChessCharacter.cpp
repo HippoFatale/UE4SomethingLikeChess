@@ -189,6 +189,7 @@ void ASomethingLikeChessCharacter::PlayerAttack()
 		{
 			FPieceTeamInfo HitPieceTeamInfo(HitPiece, PlayerTeam);
 			ServerSetPieceTeam(HitPieceTeamInfo);
+			UpdateScore(HitPiece->GetPieceScore());
 		}
 	}
 
@@ -216,7 +217,6 @@ void ASomethingLikeChessCharacter::UpdateHealth(float HealthChange)
 {
 	Health += HealthChange;
 	Health = FMath::Clamp(Health, 0.0f, FullHealth);
-	PreviousHealth = HealthPercentage;
 	HealthPercentage = Health / FullHealth;
 
 	if (Health <= 0.0f)
@@ -226,6 +226,11 @@ void ASomethingLikeChessCharacter::UpdateHealth(float HealthChange)
 
 		//Destroy();
 	}
+}
+
+void ASomethingLikeChessCharacter::UpdateScore(float ScoreChange)
+{
+	Score += ScoreChange;
 }
 
 void ASomethingLikeChessCharacter::SetPlayerTeam(EPieceTeam InPieceTeam)

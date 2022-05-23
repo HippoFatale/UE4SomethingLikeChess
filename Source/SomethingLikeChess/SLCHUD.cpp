@@ -8,3 +8,8 @@ void USLCHUD::UpdateHealthPercent(float InHealthPercent)
 {
 	HealthBar->SetPercent(InHealthPercent);
 }
+
+void USLCHUD::UpdateScoreText(float InScoreText)
+{
+	//ScoreText->Bind(InScoreText);
+}
