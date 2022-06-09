@@ -7,6 +7,7 @@
 #include "SomethingLikeChessCharacter.generated.h"
 
 class ASLCPlayerController;
+class ASLCGameStateBase;
 
 UCLASS(config=Game)
 class ASomethingLikeChessCharacter : public ACharacter
@@ -108,22 +109,12 @@ public:
 #pragma region Score
 public:
 	UFUNCTION(BlueprintPure, Category = "Score")
-	bool GetGameEnd() { return bGameEnd; }
-
-	UFUNCTION(BlueprintPure, Category = "Score")
-	bool GetGameResult() { return bVictory; }
-
-	UFUNCTION(BlueprintPure, Category = "Score")
 	float GetScore() { return Score; }
 
 	UFUNCTION(BlueprintCallable, Category = "Score")
 	void UpdateScore(float ScoreChange);
 
 public:
-	bool bGameEnd = false;
-
-	bool bVictory = false;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Score")
 	float Score = 0.0f;
 #pragma endregion
@@ -158,5 +149,9 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	UMaterial* Team2Material;
 #pragma endregion
+
+private:
+	UPROPERTY()
+	ASLCGameStateBase* SLCGameState;
 };
 

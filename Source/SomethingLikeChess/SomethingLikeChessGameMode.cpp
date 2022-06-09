@@ -21,7 +21,7 @@ void ASomethingLikeChessGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SpawnPlayers(Players);
+	//SpawnPlayers(Players);
 
 	SpawnPieces(Kings, Queens, Rooks, Bishops, Knights, PawnPieces);
 }

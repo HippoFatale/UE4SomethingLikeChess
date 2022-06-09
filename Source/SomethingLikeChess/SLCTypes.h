@@ -88,3 +88,27 @@ public:
 		PlayerTeam = InPlayerTeam;
 	}
 };
+
+USTRUCT()
+struct FGameResultInfo
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY()
+	EPieceTeam PlayerTeam;
+
+	UPROPERTY()
+	bool bVictory;
+
+	FGameResultInfo()
+	{
+
+	}
+
+	FGameResultInfo(EPieceTeam InPlayerTeam, bool InbVictory)
+	{
+		PlayerTeam = InPlayerTeam;
+		bVictory = InbVictory;
+	}
+};

@@ -17,6 +17,7 @@
 #include "SLCPlayerController.h"
 #include "Net/UnrealNetwork.h"
 #include "SLCHUD.h"
+//#pragma optimize("", off)
 //////////////////////////////////////////////////////////////////////////
 // ASomethingLikeChessCharacter
 
@@ -192,7 +193,6 @@ void ASomethingLikeChessCharacter::PlayerAttack()
 			UpdateScore(HitPiece->GetPieceScore());
 		}
 	}
-
 }
 
 void ASomethingLikeChessCharacter::PlayerAtkCDEnd()
@@ -221,10 +221,7 @@ void ASomethingLikeChessCharacter::UpdateHealth(float HealthChange)
 
 	if (Health <= 0.0f)
 	{
-		bGameEnd = true;
-		bVictory = false;
-
-		//Destroy();
+		Cast<ASLCPlayerController>(GetController())->Defeat();
 	}
 }
 

@@ -35,3 +35,8 @@ void ASLCPlayerController::UpdateHealthPercent(float InHealthPercent)
 		SLCHUD->UpdateHealthPercent(InHealthPercent);
 	}
 }
+
+void ASLCPlayerController::Defeat()
+{
+	
+}

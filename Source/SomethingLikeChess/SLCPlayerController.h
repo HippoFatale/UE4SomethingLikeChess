@@ -22,7 +22,10 @@ public:
 	void UpdateHealthPercent(float InHealthPercent);
 
 	void SetControllerTeam(EPieceTeam InControllerTeam) { ControllerTeam = InControllerTeam; }
+
 	EPieceTeam GetControllerTeam() { return ControllerTeam; }
+
+	void Defeat();
 
 protected:
 	virtual void BeginPlay() override;
