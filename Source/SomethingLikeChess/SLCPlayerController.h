@@ -25,16 +25,29 @@ public:
 
 	EPieceTeam GetControllerTeam() { return ControllerTeam; }
 
-	void Defeat();
+	void Victory(EPieceTeam InWinTeam);
+
+	void Defeat(EPieceTeam InLoseTeam);
 
 protected:
 	virtual void BeginPlay() override;
 
 	virtual void OnPossess(APawn* InPawn) override;
 
+	void GameEnd();
+
+	UFUNCTION(Server, Reliable)
+	void ServerGameEnd();
+
+	UFUNCTION(NetMulticast, Reliable)
+	void MulticastGameEnd();
+
 private:
 	UPROPERTY()
 	class USLCHUD* SLCHUD;
+
+	UPROPERTY(EditDefaultsOnly)
+	class ASLCGameStateBase* SLCGameStateBase;
 
 	EPieceTeam ControllerTeam = EPieceTeam::Neutral;
 };

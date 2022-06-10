@@ -5,6 +5,7 @@
 #include "SLCTypes.h"
 #include "SLCHUD.h"
 #include "SomethingLikeChessCharacter.h"
+#include "SLCGameStateBase.h"
 
 void ASLCPlayerController::BeginPlay()
 {
@@ -15,6 +16,8 @@ void ASLCPlayerController::BeginPlay()
 		SLCHUD = CreateWidget<USLCHUD>(this, BP_SLCHUD);
 		SLCHUD->AddToViewport(0);
 	}
+
+	SLCGameStateBase = GetWorld() != NULL ? Cast<ASLCGameStateBase>(GetWorld()->GetGameState()) : NULL;
 }
 
 void ASLCPlayerController::OnPossess(APawn* InPawn)
@@ -36,7 +39,39 @@ void ASLCPlayerController::UpdateHealthPercent(float InHealthPercent)
 	}
 }
 
-void ASLCPlayerController::Defeat()
+void ASLCPlayerController::Victory(EPieceTeam InWinTeam)
 {
-	
+	ServerGameEnd();
+
+	SLCGameStateBase->SetWinTeam(InWinTeam);
+}
+
+void ASLCPlayerController::Defeat(EPieceTeam InLoseTeam)
+{
+	ServerGameEnd();
+
+	if (InLoseTeam == EPieceTeam::Team1)
+	{
+		SLCGameStateBase->SetWinTeam(EPieceTeam::Team2);
+	} 
+	else if (InLoseTeam == EPieceTeam::Team2)
+	{
+		SLCGameStateBase->SetWinTeam(EPieceTeam::Team1);
+	}
+}
+
+void ASLCPlayerController::GameEnd()
+{
+	SLCGameStateBase->SetGameEnded(true);
+	SetPause(false);
+}
+
+void ASLCPlayerController::ServerGameEnd_Implementation()
+{
+	MulticastGameEnd();
+}
+
+void ASLCPlayerController::MulticastGameEnd_Implementation()
+{
+	GameEnd();
 }

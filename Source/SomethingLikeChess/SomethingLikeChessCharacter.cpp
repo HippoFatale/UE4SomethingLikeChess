@@ -221,7 +221,7 @@ void ASomethingLikeChessCharacter::UpdateHealth(float HealthChange)
 
 	if (Health <= 0.0f)
 	{
-		Cast<ASLCPlayerController>(GetController())->Defeat();
+		Cast<ASLCPlayerController>(GetController())->Defeat(PlayerTeam);
 	}
 }
 

@@ -121,6 +121,7 @@ public:
 
 #pragma region Team
 public:
+	UFUNCTION(BlueprintPure)
 	EPieceTeam GetPlayerTeam() { return PlayerTeam; }
 
 	void SetPlayerTeam(EPieceTeam InPieceTeam);

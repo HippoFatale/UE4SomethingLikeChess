@@ -4,8 +4,3 @@
 #include "SLCGameStateBase.h"
 #include "SomethingLikeChessCharacter.h"
 #include "GameFramework/PlayerState.h"
-
-void ASLCGameStateBase::Lose(EPieceTeam InPieceTeam)
-{
-	
-}
