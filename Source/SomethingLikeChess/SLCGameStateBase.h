@@ -26,8 +26,20 @@ public:
 
 	void SetGameEnded(bool InbGameEnded) { bGameEnded = InbGameEnded; }
 
+	UFUNCTION(BlueprintPure)
+	int32 GetTeam1Score() { return Team1Score; }
+
+	UFUNCTION(BlueprintPure)
+	int32 GetTeam2Score() { return Team2Score; }
+
+	void AddScore(EPieceTeam InTeam, int32 InScore, bool bIsNeutral);
+
 private:
 	EPieceTeam WinTeam = EPieceTeam::Neutral;
 
 	bool bGameEnded = false;
+
+	int32 Team1Score = 0;
+
+	int32 Team2Score = 0;
 };

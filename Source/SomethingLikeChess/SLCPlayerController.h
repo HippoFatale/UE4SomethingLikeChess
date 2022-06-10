@@ -43,10 +43,8 @@ protected:
 	void MulticastGameEnd();
 
 private:
-	UPROPERTY()
 	class USLCHUD* SLCHUD;
 
-	UPROPERTY(EditDefaultsOnly)
 	class ASLCGameStateBase* SLCGameStateBase;
 
 	EPieceTeam ControllerTeam = EPieceTeam::Neutral;

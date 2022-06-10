@@ -106,19 +106,6 @@ public:
 	float HealthPercentage = 1.0f;
 #pragma endregion
 
-#pragma region Score
-public:
-	UFUNCTION(BlueprintPure, Category = "Score")
-	float GetScore() { return Score; }
-
-	UFUNCTION(BlueprintCallable, Category = "Score")
-	void UpdateScore(float ScoreChange);
-
-public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Score")
-	float Score = 0.0f;
-#pragma endregion
-
 #pragma region Team
 public:
 	UFUNCTION(BlueprintPure)
@@ -152,7 +139,8 @@ private:
 #pragma endregion
 
 private:
-	UPROPERTY()
-	ASLCGameStateBase* SLCGameState;
+	ASLCGameStateBase* SLCGameStateBase;
+
+	ASLCPlayerController* SLCPlayerController;
 };
 

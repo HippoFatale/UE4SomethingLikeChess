@@ -63,6 +63,8 @@ void ASomethingLikeChessCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
+	SLCGameStateBase = GetWorld() != NULL ? Cast<ASLCGameStateBase>(GetWorld()->GetGameState()) : NULL;
+
 	ServerSetPlayerColor(PlayerTeam);
 	MulticastSetPlayerColor(PlayerTeam);
 }
@@ -190,7 +192,7 @@ void ASomethingLikeChessCharacter::PlayerAttack()
 		{
 			FPieceTeamInfo HitPieceTeamInfo(HitPiece, PlayerTeam);
 			ServerSetPieceTeam(HitPieceTeamInfo);
-			UpdateScore(HitPiece->GetPieceScore());
+			SLCGameStateBase->AddScore(PlayerTeam, HitPiece->GetPieceScore(), HitPiece->GetPieceTeam() == EPieceTeam::Neutral);
 		}
 	}
 }
@@ -221,13 +223,13 @@ void ASomethingLikeChessCharacter::UpdateHealth(float HealthChange)
 
 	if (Health <= 0.0f)
 	{
-		Cast<ASLCPlayerController>(GetController())->Defeat(PlayerTeam);
-	}
-}
+		if (Cast<ASLCPlayerController>(GetController()) != NULL)
+		{
+			Cast<ASLCPlayerController>(GetController())->Defeat(PlayerTeam);
+		}
 
-void ASomethingLikeChessCharacter::UpdateScore(float ScoreChange)
-{
-	Score += ScoreChange;
+		//Destroy();
+	}
 }
 
 void ASomethingLikeChessCharacter::SetPlayerTeam(EPieceTeam InPieceTeam)
