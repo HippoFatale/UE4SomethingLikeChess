@@ -25,22 +25,10 @@ public:
 
 	EPieceTeam GetControllerTeam() { return ControllerTeam; }
 
-	void Victory(EPieceTeam InWinTeam);
-
-	void Defeat(EPieceTeam InLoseTeam);
-
 protected:
 	virtual void BeginPlay() override;
 
 	virtual void OnPossess(APawn* InPawn) override;
-
-	void GameEnd();
-
-	UFUNCTION(Server, Reliable)
-	void ServerGameEnd();
-
-	UFUNCTION(NetMulticast, Reliable)
-	void MulticastGameEnd();
 
 private:
 	class USLCHUD* SLCHUD;

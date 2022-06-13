@@ -7,6 +7,8 @@
 #include "SLCTypes.h"
 #include "SLCGameStateBase.generated.h"
 
+class ASomethingLikeChessGameMode;
+
 /**
  * 
  */
@@ -15,16 +17,15 @@ class SOMETHINGLIKECHESS_API ASLCGameStateBase : public AGameStateBase
 {
 	GENERATED_BODY()
 
+protected:
+	virtual void BeginPlay() override;
+
 public:
 	UFUNCTION(BlueprintPure)
 	EPieceTeam GetWinTeam() { return WinTeam; }
 
-	void SetWinTeam(EPieceTeam InWinTeam) { WinTeam = InWinTeam; }
-
 	UFUNCTION(BlueprintPure)
 	bool GetGameEnded() { return bGameEnded; }
-
-	void SetGameEnded(bool InbGameEnded) { bGameEnded = InbGameEnded; }
 
 	UFUNCTION(BlueprintPure)
 	int32 GetTeam1Score() { return Team1Score; }
@@ -34,12 +35,21 @@ public:
 
 	void AddScore(EPieceTeam InTeam, int32 InScore, bool bIsNeutral);
 
+	void Victory(EPieceTeam InWinTeam);
+
+	void Defeat(EPieceTeam InLoseTeam);
+
 private:
+	int32 Team1Score = 0;
+
+	int32 Team2Score = 0;
+
 	EPieceTeam WinTeam = EPieceTeam::Neutral;
 
 	bool bGameEnded = false;
 
-	int32 Team1Score = 0;
+	ASomethingLikeChessGameMode* SLCGameMode;
 
-	int32 Team2Score = 0;
+	UPROPERTY(EditDefaultsOnly)
+	int32 WinScore = 24;
 };

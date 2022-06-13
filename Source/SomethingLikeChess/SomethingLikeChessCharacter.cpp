@@ -223,10 +223,7 @@ void ASomethingLikeChessCharacter::UpdateHealth(float HealthChange)
 
 	if (Health <= 0.0f)
 	{
-		if (Cast<ASLCPlayerController>(GetController()) != NULL)
-		{
-			Cast<ASLCPlayerController>(GetController())->Defeat(PlayerTeam);
-		}
+		SLCGameStateBase->Defeat(PlayerTeam);
 
 		//Destroy();
 	}
