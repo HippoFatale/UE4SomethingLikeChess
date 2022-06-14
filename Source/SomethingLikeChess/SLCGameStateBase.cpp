@@ -17,20 +17,35 @@ void ASLCGameStateBase::AddScore(EPieceTeam InTeam, int32 InScore, bool bIsNeutr
 {
 	if (InTeam == EPieceTeam::Team1)
 	{
-		Team1Score = Team1Score + InScore;
-		if (Team1Score >= WinScore)
+		UpdateTeam1Score(InScore);
+		if (!bIsNeutral)
 		{
-			Victory(EPieceTeam::Team1);
+			UpdateTeam2Score(-InScore);
 		}
 	}
 	else if (InTeam == EPieceTeam::Team2)
 	{
-		Team2Score = Team2Score + InScore;
-		if (Team2Score >= WinScore)
+		UpdateTeam2Score(InScore);
+		if (!bIsNeutral)
 		{
-			Victory(EPieceTeam::Team2);
+			UpdateTeam1Score(-InScore);
 		}
 	}
+}
+
+void ASLCGameStateBase::ServerAddScore_Implementation(EPieceTeam InTeam, int32 InScore, bool bIsNeutral)
+{
+	MulticastAddScore(InTeam, InScore, bIsNeutral);
+}
+
+void ASLCGameStateBase::ClientAddScore_Implementation(EPieceTeam InTeam, int32 InScore, bool bIsNeutral)
+{
+	MulticastAddScore(InTeam, InScore, bIsNeutral);
+}
+
+void ASLCGameStateBase::MulticastAddScore_Implementation(EPieceTeam InTeam, int32 InScore, bool bIsNeutral)
+{
+	AddScore(InTeam, InScore, bIsNeutral);
 }
 
 void ASLCGameStateBase::Victory(EPieceTeam InWinTeam)
@@ -58,4 +73,22 @@ void ASLCGameStateBase::Defeat(EPieceTeam InLoseTeam)
 	//{
 	//	SLCGameMode->SetPause(false);
 	//}
+}
+
+void ASLCGameStateBase::UpdateTeam1Score(int32 InScore)
+{
+	Team1Score = Team1Score + InScore;
+	if (Team1Score >= WinScore)
+	{
+		Victory(EPieceTeam::Team1);
+	}
+}
+
+void ASLCGameStateBase::UpdateTeam2Score(int32 InScore)
+{
+	Team2Score = Team2Score + InScore;
+	if (Team2Score >= WinScore)
+	{
+		Victory(EPieceTeam::Team2);
+	}
 }

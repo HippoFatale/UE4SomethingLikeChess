@@ -35,9 +35,25 @@ public:
 
 	void AddScore(EPieceTeam InTeam, int32 InScore, bool bIsNeutral);
 
+	UFUNCTION(Server, Reliable)
+	void ServerAddScore(EPieceTeam InTeam, int32 InScore, bool bIsNeutral);
+
+	UFUNCTION(Client , Reliable)
+	void ClientAddScore(EPieceTeam InTeam, int32 InScore, bool bIsNeutral);
+
+	UFUNCTION(NetMulticast, Reliable)
+	void MulticastAddScore(EPieceTeam InTeam, int32 InScore, bool bIsNeutral);
+
 	void Victory(EPieceTeam InWinTeam);
 
 	void Defeat(EPieceTeam InLoseTeam);
+
+private:
+	UFUNCTION(BlueprintCallable)
+	void UpdateTeam1Score(int32 InScore);
+
+	UFUNCTION(BlueprintCallable)
+	void UpdateTeam2Score(int32 InScore);
 
 private:
 	int32 Team1Score = 0;

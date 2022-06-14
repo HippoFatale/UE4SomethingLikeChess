@@ -188,11 +188,13 @@ void ASomethingLikeChessCharacter::PlayerAttack()
 	if (PlayerTraceHit.Actor.IsValid() && PlayerTraceHit.Actor->IsA(APiece::StaticClass()))
 	{
 		APiece* HitPiece = Cast<APiece>(PlayerTraceHit.Actor);
-		if (HitPiece->GetPieceTeam() != PlayerTeam)
+		EPieceTeam PrevPieceTeam = HitPiece->GetPieceTeam();
+		if (PrevPieceTeam != PlayerTeam)
 		{
 			FPieceTeamInfo HitPieceTeamInfo(HitPiece, PlayerTeam);
 			ServerSetPieceTeam(HitPieceTeamInfo);
-			SLCGameStateBase->AddScore(PlayerTeam, HitPiece->GetPieceScore(), HitPiece->GetPieceTeam() == EPieceTeam::Neutral);
+			//SLCGameStateBase->ServerAddScore(PlayerTeam, HitPiece->GetPieceScore(), PrevPieceTeam == EPieceTeam::Neutral);
+			SLCGameStateBase->MulticastAddScore(PlayerTeam, HitPiece->GetPieceScore(), PrevPieceTeam == EPieceTeam::Neutral);
 		}
 	}
 }
