@@ -48,31 +48,35 @@ void ASLCGameStateBase::MulticastAddScore_Implementation(EPieceTeam InTeam, int3
 	AddScore(InTeam, InScore, bIsNeutral);
 }
 
-void ASLCGameStateBase::Victory(EPieceTeam InWinTeam)
+void ASLCGameStateBase::GameEnd(EPieceTeam InTeam, bool bWin)
 {
-	WinTeam = InWinTeam;
 	bGameEnded = true;
-	//if (SLCGameMode != NULL)
-	//{
-	//	SLCGameMode->SetPause(false);
-	//}
+
+	if (bWin)
+	{
+		WinTeam = InTeam;
+	} 
+	else
+	{
+		if (InTeam == EPieceTeam::Team1)
+		{
+			WinTeam = EPieceTeam::Team2;
+		}
+		else if (InTeam == EPieceTeam::Team2)
+		{
+			WinTeam = EPieceTeam::Team1;
+		}
+	}
 }
 
-void ASLCGameStateBase::Defeat(EPieceTeam InLoseTeam)
+void ASLCGameStateBase::ServerGameEnd_Implementation(EPieceTeam InTeam, bool bWin)
 {
-	if (InLoseTeam == EPieceTeam::Team1)
-	{
-		WinTeam = EPieceTeam::Team2;
-	} 
-	else if (InLoseTeam == EPieceTeam::Team2)
-	{
-		WinTeam = EPieceTeam::Team1;
-	}
-	bGameEnded = true;
-	//if (SLCGameMode != NULL)
-	//{
-	//	SLCGameMode->SetPause(false);
-	//}
+	MulticastGameEnd(InTeam, bWin);
+}
+
+void ASLCGameStateBase::MulticastGameEnd_Implementation(EPieceTeam InTeam, bool bWin)
+{
+	GameEnd(InTeam, bWin);
 }
 
 void ASLCGameStateBase::UpdateTeam1Score(int32 InScore)
@@ -80,7 +84,7 @@ void ASLCGameStateBase::UpdateTeam1Score(int32 InScore)
 	Team1Score = Team1Score + InScore;
 	if (Team1Score >= WinScore)
 	{
-		Victory(EPieceTeam::Team1);
+		MulticastGameEnd(EPieceTeam::Team1, true);
 	}
 }
 
@@ -89,6 +93,6 @@ void ASLCGameStateBase::UpdateTeam2Score(int32 InScore)
 	Team2Score = Team2Score + InScore;
 	if (Team2Score >= WinScore)
 	{
-		Victory(EPieceTeam::Team2);
+		MulticastGameEnd(EPieceTeam::Team2, true);
 	}
 }

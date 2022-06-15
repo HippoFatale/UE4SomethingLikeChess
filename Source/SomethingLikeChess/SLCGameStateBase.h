@@ -44,9 +44,13 @@ public:
 	UFUNCTION(NetMulticast, Reliable)
 	void MulticastAddScore(EPieceTeam InTeam, int32 InScore, bool bIsNeutral);
 
-	void Victory(EPieceTeam InWinTeam);
+	void GameEnd(EPieceTeam InTeam, bool bWin);
 
-	void Defeat(EPieceTeam InLoseTeam);
+	UFUNCTION(Server, Reliable)
+	void ServerGameEnd(EPieceTeam InTeam, bool bWin);
+
+	UFUNCTION(NetMulticast, Reliable)
+	void MulticastGameEnd(EPieceTeam InTeam, bool bWin);
 
 private:
 	UFUNCTION(BlueprintCallable)

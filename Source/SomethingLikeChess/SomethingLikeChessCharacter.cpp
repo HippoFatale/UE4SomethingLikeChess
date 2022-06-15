@@ -225,7 +225,7 @@ void ASomethingLikeChessCharacter::UpdateHealth(float HealthChange)
 
 	if (Health <= 0.0f)
 	{
-		SLCGameStateBase->Defeat(PlayerTeam);
+		SLCGameStateBase->ServerGameEnd(PlayerTeam, false);
 
 		//Destroy();
 	}
