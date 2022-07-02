@@ -32,8 +32,6 @@ protected:
 protected:
 	virtual FString InitNewPlayer(APlayerController* NewPlayerController, const FUniqueNetIdRepl& UniqueId, const FString& Options, const FString& Portal = TEXT("")) override;
 
-	void SpawnPlayers(int32 InPlayers);
-
 private:
 	bool bIsTeam1 = true;
 
@@ -45,9 +43,6 @@ private:
 #pragma endregion
 
 #pragma region SpawnPieces
-public:
-	void AdditonalSpawnPieces(int32 InPieceType);
-
 protected:
 	void SpawnPieces(int32 InKings, int32 InQueens, int32 InRooks, int32 InBishops, int32 InKnights, int32 InPawns);
 
@@ -70,11 +65,11 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Piece")
 	TSubclassOf<class APawnChessPiece> PawnPiece;
 
-	int BoardSquares = 28;
+	int BoardSquares = 28 - 2;
 	float SquareSize = 100.0f;
 
-	float Boarda1X = -1800.0f;
-	float Boarda1Y = -1400.0f;
+	float Boarda1X = -(1800.0f - SquareSize * 1);
+	float Boarda1Y = -(1400.0f - SquareSize * 1);
 	UPROPERTY(EditDefaultsOnly, Category = "Spawn")
 	float FloorLevel = 130.0f;
 
@@ -89,6 +84,3 @@ private:
 	int32 PawnPieces = Sets * 8;
 #pragma endregion
 };
-
-
-
